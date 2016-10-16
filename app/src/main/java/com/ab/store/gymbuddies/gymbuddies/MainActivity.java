@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.app.ProgressDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             Log.d("MainActivity", "button clicked");
-            boolean isValid = true;// validate();
+            login();
+            boolean isValid = false;// validate();
 
             if (isValid) {
                 fireCommunitiesActivity();
@@ -92,5 +94,38 @@ public class MainActivity extends AppCompatActivity {
 
         return valid;
     }
+
+    public void login() {
+
+        if (!validate()) {
+            //onLoginFailed();
+            return;
+        }
+
+        _loginbtn.setEnabled(false);
+
+        final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Authenticating...");
+        progressDialog.show();
+
+        String email = _emailText.getText().toString();
+        String password = _passwordText.getText().toString();
+
+        // TODO: Implement your own authentication logic here.
+
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        // On complete call either onLoginSuccess or onLoginFailed
+                        //onLoginSuccess();
+                        // onLoginFailed();
+                        progressDialog.dismiss();
+                    }
+                }, 3000);
+    }
+
+
 
 }
