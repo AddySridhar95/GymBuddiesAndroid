@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -40,12 +41,12 @@ public class HTTPRequestWrapper {
      * This method is used to make a get requests
      * @param endpoint     request endpoint
      */
-    public static void makeGetRequest (final String endpoint) {
+    public static void makeGetRequest (final String endpoint, final VolleyCallback success, final VolleyCallback failure) {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, baseURL + endpoint,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response);
+                        success.onSuccessResponse();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -53,6 +54,7 @@ public class HTTPRequestWrapper {
                 Toast errToast = Toast.makeText(context, "GET request to " + baseURL +
                         endpoint + " failed.", Toast.LENGTH_SHORT);
                 errToast.show();
+                failure.onSuccessResponse();
             }
         });
         queue.add(stringRequest);
