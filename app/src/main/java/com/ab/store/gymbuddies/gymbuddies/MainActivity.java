@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.app.ProgressDialog;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             Log.d("MainActivity", "button clicked");
-            login();
-            boolean isValid = false;// validate();
+            //login();
+            boolean isValid = login();
 
             if (isValid) {
                 fireCommunitiesActivity();
@@ -95,11 +96,22 @@ public class MainActivity extends AppCompatActivity {
         return valid;
     }
 
-    public void login() {
+    public void onLoginSuccess() {
+        _loginbtn.setEnabled(true);
+        finish();
+    }
+
+    public void onLoginFailed() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+
+        _loginbtn.setEnabled(true);
+    }
+
+    public boolean login() {
 
         if (!validate()) {
-            //onLoginFailed();
-            return;
+            onLoginFailed();
+            return false;
         }
 
         _loginbtn.setEnabled(false);
@@ -113,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        // TODO: Implement your own authentication logic here.
-
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -124,6 +134,17 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+
+        if (email.equals("pikachu@gmail.com") && password.equals("hunter")){
+            onLoginSuccess();
+            return true;
+        }else{
+            onLoginFailed();
+            return false;
+        }
+        // TODO: Implement your own authentication logic here.
+
+
     }
 
 

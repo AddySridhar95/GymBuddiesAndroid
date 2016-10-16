@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +21,6 @@ public class CommunitiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities);
 
-        ListView communitiesListView = (ListView) findViewById(R.id.communities_list);
         final ArrayList<User> users = new ArrayList<User>();
 
         users.add(new User(1, "abc", "xyz", 23, "become fit"));
@@ -43,22 +43,24 @@ public class CommunitiesActivity extends AppCompatActivity {
                     v = inflater.inflate(R.layout.communities_list_item, null);
                 }
 
+                ImageView profilePic = (ImageView) v.findViewById(R.id.list_icon);
+                profilePic.setImageResource(R.drawable.logo);
+
                 TextView name = (TextView) v.findViewById(R.id.list_name);
                 name.setText(users.get(position).firstName + " " + users.get(position).lastName);
+
+                TextView age = (TextView) v.findViewById(R.id.list_age);
+
+                if (age != null) { age.setText(Integer.toString(users.get(position).age)); }
+
+
+                TextView goals = (TextView) v.findViewById(R.id.list_goal);
+                goals.setText(users.get(position).goals);
+
                 return v;
             }
 
         };
-
-
-
-
-
-
-
-
-
-
 
 
         ListView listView = (ListView) findViewById(R.id.communities_list);
