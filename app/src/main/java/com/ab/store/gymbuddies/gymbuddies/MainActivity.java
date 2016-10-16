@@ -17,12 +17,20 @@ import android.widget.EditText;
 import android.app.ProgressDialog;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import GymBuddies.Global.Constants;
+import GymBuddies.Helpers.HTTPRequestWrapper;
+import GymBuddies.Helpers.VolleyCallback;
+
 public class MainActivity extends AppCompatActivity {
 
     Button _loginbtn;
     TextView _signupLink;
     EditText _emailText;
     EditText _passwordText;
+    Constants constants = new Constants();
 
 
     void fireCommunitiesActivity() {
@@ -34,11 +42,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Log.d("MainActivity", "button clicked");
             //login();
-            boolean isValid = login();
-
-            if (isValid) {
-                fireCommunitiesActivity();
-            }
+            login();
         }
     };
 
@@ -107,11 +111,11 @@ public class MainActivity extends AppCompatActivity {
         _loginbtn.setEnabled(true);
     }
 
-    public boolean login() {
+    public void login() {
 
         if (!validate()) {
             onLoginFailed();
-            return false;
+            //return false;
         }
 
         _loginbtn.setEnabled(false);
@@ -125,23 +129,43 @@ public class MainActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
+        /**
+         * Create a request success callback
+         */
+        final VolleyCallback successCallback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse() {
+                onLoginSuccess();
+                fireCommunitiesActivity();
+            }
+        };
+
+        /**
+         * Create a request failure callback
+         */
+        final VolleyCallback failureCallback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse() {
+                onLoginFailed();
+            }
+        };
+
+        // Wrapper to make HTTP request calls
+        final HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper(constants.BASE_URL,
+                this);
+
+        // Create a list of post parameters
+        final HashMap<String, String> params = new HashMap<>();
+        params.put("email", email);
+        params.put("password", password);
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        //onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
+                        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
+                                params, successCallback, failureCallback);
                     }
                 }, 3000);
 
-        if (email.equals("pikachu@gmail.com") && password.equals("hunter")){
-            onLoginSuccess();
-            return true;
-        }else{
-            onLoginFailed();
-            return false;
-        }
         // TODO: Implement your own authentication logic here.
 
 
