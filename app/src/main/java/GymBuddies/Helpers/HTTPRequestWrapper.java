@@ -78,8 +78,6 @@ public class HTTPRequestWrapper {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast err = Toast.makeText(context, error.toString(), Toast.LENGTH_LONG);
-                err.show();
                 failure.onSuccessResponse();
             }
         }) {

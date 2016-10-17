@@ -31,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
     EditText _emailText;
     EditText _passwordText;
     Constants constants = new Constants();
+    ProgressDialog progressDialog;
 
 
     void fireCommunitiesActivity() {
+        // Dismiss progress bar to prevent activity from leaking
+        if (progressDialog.isShowing()) progressDialog.dismiss();
         Intent intent = new Intent(this, CommunitiesActivity.class);
         startActivity(intent);
     }
@@ -102,25 +105,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginbtn.setEnabled(true);
+        fireCommunitiesActivity();
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
+        // Dismiss progress bar to prevent activity from leaking
+        if (progressDialog.isShowing()) progressDialog.dismiss();
+        Toast.makeText(getBaseContext(), "User not authorized!", Toast.LENGTH_LONG).show();
         _loginbtn.setEnabled(true);
     }
 
     public void login() {
 
         if (!validate()) {
-            onLoginFailed();
-            //return false;
+//            onLoginFailed();
+            return;
         }
 
         _loginbtn.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this,
+        progressDialog = new ProgressDialog(MainActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
@@ -136,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccessResponse() {
                 onLoginSuccess();
-                fireCommunitiesActivity();
             }
         };
 
@@ -158,13 +162,9 @@ public class MainActivity extends AppCompatActivity {
         final HashMap<String, String> params = new HashMap<>();
         params.put("email", email);
         params.put("password", password);
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
-                                params, successCallback, failureCallback);
-                    }
-                }, 3000);
+//
+        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
+                params, successCallback, failureCallback);
 
         // TODO: Implement your own authentication logic here.
 
