@@ -19,12 +19,24 @@ public class User {
         goals = g;
     }
 
+    int getId() {
+        return id;
+    }
+
     String getFirstName() {
         return firstName;
     }
 
     String getLastName() {
         return lastName;
+    }
+
+    int getAge() {
+        return age;
+    }
+
+    String getGoals() {
+        return goals;
     }
 }
 

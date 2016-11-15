@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import java.util.*;
 import android.widget.TextView;
 import android.view.LayoutInflater;
+
+import org.w3c.dom.Text;
+
 /**
  * Created by adityasridhar on 2016-11-14.
  */
@@ -28,6 +31,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User u = contactList.get(i);
         userViewHolder.vFirstName.setText(u.getFirstName());
         userViewHolder.vLastName.setText(u.getLastName());
+        userViewHolder.vAge.setText(u.getAge());
+        userViewHolder.vGoals.setText(u.getGoals());
     }
 
     @Override
@@ -42,12 +47,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         protected TextView vFirstName;
         protected TextView vLastName;
+        protected TextView vAge;
+        protected TextView vGoals;
 
 
         public UserViewHolder(View v) {
             super(v);
             vFirstName =  (TextView) v.findViewById(R.id.txtFirstName);
             vLastName = (TextView)  v.findViewById(R.id.txtLastName);
+
+            // TODO: need to add age and goals to the view holder
         }
     }
 }
