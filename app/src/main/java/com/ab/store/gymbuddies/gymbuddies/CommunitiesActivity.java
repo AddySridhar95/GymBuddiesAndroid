@@ -3,6 +3,7 @@ package com.ab.store.gymbuddies.gymbuddies;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import android.support.v7.widget.LinearLayoutManager;
 
 public class CommunitiesActivity extends AppCompatActivity {
 
@@ -21,50 +24,19 @@ public class CommunitiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities);
 
-        final ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(new User(1, "abc", "xyz", 12, "sjdfklsadjf"));
+        users.add(new User(1, "abc", "xyz", 12, "sjdfklsadjf"));
+        users.add(new User(1, "abc", "xyz", 12, "sjdfklsadjf"));
 
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
+        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList.setHasFixedSize(true);
 
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recList.setLayoutManager(llm);
 
-        ArrayAdapter<User> itemsAdapter = new ArrayAdapter<User>(this, R.layout.communities_list_item, users) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                // assign the view we are converting to a local variable
-                View v = convertView;
-
-                // first check to see if the view is null. if so, we have to inflate it.
-                // to inflate it basically means to render, or show, the view.
-                if (v == null) {
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    v = inflater.inflate(R.layout.communities_list_item, null);
-                }
-
-                ImageView profilePic = (ImageView) v.findViewById(R.id.list_icon);
-                profilePic.setImageResource(R.drawable.logo);
-
-                TextView name = (TextView) v.findViewById(R.id.list_name);
-                name.setText(users.get(position).firstName + " " + users.get(position).lastName);
-
-                TextView age = (TextView) v.findViewById(R.id.list_age);
-
-                if (age != null) { age.setText(Integer.toString(users.get(position).age)); }
-
-
-                TextView goals = (TextView) v.findViewById(R.id.list_goal);
-                goals.setText(users.get(position).goals);
-
-                return v;
-            }
-
-        };
-
-
-        ListView listView = (ListView) findViewById(R.id.communities_list);
-        listView.setAdapter(itemsAdapter);
-
+        UserAdapter userAdapter = new UserAdapter(users);
+        recList.setAdapter(userAdapter);
     }
 }

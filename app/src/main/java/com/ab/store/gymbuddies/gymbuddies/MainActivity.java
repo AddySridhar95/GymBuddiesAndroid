@@ -162,13 +162,15 @@ public class MainActivity extends AppCompatActivity {
         final HashMap<String, String> params = new HashMap<>();
         params.put("email", email);
         params.put("password", password);
-//
-        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
-                params, successCallback, failureCallback);
+
+//        Removed by aditya as a hack. Login wasnt working
+//        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
+//                params, successCallback, failureCallback);
 
         // TODO: Implement your own authentication logic here.
 
-
+        // Added by aditya as a hack. Login wasnt working
+        onLoginSuccess();
     }
 
 

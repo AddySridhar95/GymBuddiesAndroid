@@ -18,5 +18,13 @@ public class User {
         age = a;
         goals = g;
     }
+
+    String getFirstName() {
+        return firstName;
+    }
+
+    String getLastName() {
+        return lastName;
+    }
 }
 
