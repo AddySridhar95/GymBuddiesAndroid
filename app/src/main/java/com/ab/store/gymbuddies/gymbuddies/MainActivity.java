@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             Log.d("MainActivity", "button clicked");
-            //login();
             login();
         }
     };

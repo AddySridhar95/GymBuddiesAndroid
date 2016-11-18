@@ -1,5 +1,7 @@
 package com.ab.store.gymbuddies.gymbuddies;
 
+import java.util.ArrayList;
+
 /**
  * Created by sherloose (goose) on 2016-10-15.
  */
@@ -9,11 +11,11 @@ public class User {
     String firstName;
     String lastName;
     int age;
-    String goals;
+    ArrayList<Goal> goals;
     String gym;
     String gymPinCode;
 
-    User(int i, String f, String l, int a, String g, String gy, String gyp) {
+    User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp) {
         id = i;
         firstName = f;
         lastName = l;
@@ -39,7 +41,7 @@ public class User {
         return age;
     }
 
-    String getGoals() {
+    ArrayList<Goal> getGoals() {
         return goals;
     }
 }
