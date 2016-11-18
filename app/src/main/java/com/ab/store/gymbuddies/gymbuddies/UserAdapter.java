@@ -31,8 +31,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User u = contactList.get(i);
         userViewHolder.vFirstName.setText(u.getFirstName());
         userViewHolder.vLastName.setText(u.getLastName());
-        userViewHolder.vAge.setText(u.getAge());
-        userViewHolder.vGoals.setText(u.getGoals());
+        // userViewHolder.vAge.setText(u.getAge());
+        // userViewHolder.vGoals.setText(u.getGoals());
     }
 
     @Override
