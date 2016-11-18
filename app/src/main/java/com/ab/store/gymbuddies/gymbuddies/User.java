@@ -10,13 +10,17 @@ public class User {
     String lastName;
     int age;
     String goals;
+    String gym;
+    String gymPinCode;
 
-    User(int i, String f, String l, int a, String g) {
+    User(int i, String f, String l, int a, String g, String gy, String gyp) {
         id = i;
         firstName = f;
         lastName = l;
         age = a;
         goals = g;
+        gym = gy;
+        gymPinCode = gyp;
     }
 
     int getId() {
