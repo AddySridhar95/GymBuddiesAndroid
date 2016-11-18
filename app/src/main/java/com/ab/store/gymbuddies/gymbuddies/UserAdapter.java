@@ -29,8 +29,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @Override
     public void onBindViewHolder(UserViewHolder userViewHolder, int i) {
         User u = contactList.get(i);
-        userViewHolder.vFirstName.setText(u.getFirstName());
-        userViewHolder.vLastName.setText(u.getLastName());
+        userViewHolder.vFullName.setText(u.getFirstName() + " " + u.getLastName());
+        userViewHolder.vAge.setText("Age: " + u.getAge());
         //userViewHolder.vAge.setText(u.getAge());
         // userViewHolder.vGoals.setText(u.getGoals());
     }

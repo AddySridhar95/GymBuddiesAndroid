@@ -162,14 +162,10 @@ public class MainActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
-        // TODO: removed by aditya as a hack
-//        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
-//                params, successCallback, failureCallback);
+        requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
+                params, successCallback, failureCallback);
 
         // TODO: Implement your own authentication logic here.
-
-        // TODO: added by aditya as a hack
-        onLoginSuccess();
     }
 
 
