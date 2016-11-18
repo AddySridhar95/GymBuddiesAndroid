@@ -45,18 +45,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
-        protected TextView vFirstName;
-        protected TextView vLastName;
+        protected TextView vFullName;
         protected TextView vAge;
         protected TextView vGoals;
 
-
         public UserViewHolder(View v) {
             super(v);
-            vFirstName =  (TextView) v.findViewById(R.id.txtFirstName);
-            vLastName = (TextView)  v.findViewById(R.id.txtLastName);
+            vFullName =  (TextView) v.findViewById(R.id.txtFullName);
+            vAge = (TextView)  v.findViewById(R.id.txtAge);
 
             // TODO: need to add age and goals to the view holder
         }
+
+        // TODO: create a function that dynamically adds new text views, one for each goal
     }
 }

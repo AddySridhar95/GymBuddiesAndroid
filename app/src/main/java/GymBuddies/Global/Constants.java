@@ -7,4 +7,5 @@ package GymBuddies.Global;
 public class Constants {
     public static final String BASE_URL = "https://gymbuddyandroid.herokuapp.com/";
     public static final String LOGIN_ENDPOINT = "login";
+    public static final String COMMUNITIES_LIST = "communities/users"; // TODO: verify this
 }
