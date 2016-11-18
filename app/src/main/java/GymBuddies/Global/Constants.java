@@ -5,6 +5,6 @@ package GymBuddies.Global;
  */
 
 public class Constants {
-    public static final String BASE_URL = "http://1a7919f3.ngrok.io/";
+    public static final String BASE_URL = "http://9b52bd63.ngrok.io";
     public static final String LOGIN_ENDPOINT = "login";
 }
