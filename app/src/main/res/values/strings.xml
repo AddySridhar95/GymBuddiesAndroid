@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Gymbuddies</string>
     <string name="action_settings">Settings</string>
+    <string name="label_profile_name"> </string>
+    <string name="label_profile_age"> </string>
+    <string name="label_profile_weight"> </string>
+    <string name="label_profile_bodyfat"> </string>
+    <string name="label_profile_bio"> </string>
+    <string name="label_profile_fullname"> </string>
 </resources>

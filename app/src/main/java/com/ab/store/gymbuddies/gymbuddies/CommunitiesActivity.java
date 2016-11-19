@@ -3,16 +3,20 @@ package com.ab.store.gymbuddies.gymbuddies;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.content.Intent;
 
 import java.util.ArrayList;
 import android.support.v7.widget.LinearLayoutManager;
 
 public class CommunitiesActivity extends AppCompatActivity {
 
+    String personalEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities);
+        Intent intent = getIntent();
+        personalEmail = intent.getExtras().getString("pEmail");
 
         // TODO: currently hardcoding goals. need to fetch this from backend
         // TODO: currently hardcoding users in the communities page. need to fetch this from backend

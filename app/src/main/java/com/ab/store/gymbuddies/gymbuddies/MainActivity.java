@@ -32,12 +32,15 @@ public class MainActivity extends AppCompatActivity {
     EditText _passwordText;
     Constants constants = new Constants();
     ProgressDialog progressDialog;
+    String personalEmail;
 
 
     void fireCommunitiesActivity() {
         // Dismiss progress bar to prevent activity from leaking
         if (progressDialog.isShowing()) progressDialog.dismiss();
         Intent intent = new Intent(this, CommunitiesActivity.class);
+        personalEmail = _emailText.getText().toString();
+        intent.putExtra("pEmail", personalEmail);
         startActivity(intent);
     }
 
