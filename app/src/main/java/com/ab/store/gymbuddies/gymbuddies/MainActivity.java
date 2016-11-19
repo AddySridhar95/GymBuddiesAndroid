@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener btnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             Log.d("MainActivity", "button clicked");
-            //login();
             login();
         }
     };
@@ -162,13 +161,11 @@ public class MainActivity extends AppCompatActivity {
         final HashMap<String, String> params = new HashMap<>();
         params.put("email", email);
         params.put("password", password);
-//
+
         requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
                 params, successCallback, failureCallback);
 
         // TODO: Implement your own authentication logic here.
-
-
     }
 
 

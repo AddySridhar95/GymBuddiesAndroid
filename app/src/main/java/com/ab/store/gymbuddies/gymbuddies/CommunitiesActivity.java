@@ -1,18 +1,11 @@
 package com.ab.store.gymbuddies.gymbuddies;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import android.support.v7.widget.LinearLayoutManager;
 
 public class CommunitiesActivity extends AppCompatActivity {
 
@@ -21,50 +14,34 @@ public class CommunitiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities);
 
-        final ArrayList<User> users = new ArrayList<User>();
+        // TODO: currently hardcoding goals. need to fetch this from backend
+        // TODO: currently hardcoding users in the communities page. need to fetch this from backend
 
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
-        users.add(new User(1, "abc", "xyz", 23, "become fit"));
+        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<Goal> g1 = new ArrayList<Goal>();
+        g1.add(new Goal("LEAN", "Achieve a lean athletic body"));
+        g1.add(new Goal("BODY FAT", "Maintain/Reduce body fat"));
 
+        ArrayList<Goal> g2 = new ArrayList<Goal>();
+        g2.add(new Goal("GAIN", "Gain muscle mass"));
+        g2.add(new Goal("STRENGTH", "Improve physical strength"));
 
-        ArrayAdapter<User> itemsAdapter = new ArrayAdapter<User>(this, R.layout.communities_list_item, users) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                // assign the view we are converting to a local variable
-                View v = convertView;
-
-                // first check to see if the view is null. if so, we have to inflate it.
-                // to inflate it basically means to render, or show, the view.
-                if (v == null) {
-                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    v = inflater.inflate(R.layout.communities_list_item, null);
-                }
-
-                ImageView profilePic = (ImageView) v.findViewById(R.id.list_icon);
-                profilePic.setImageResource(R.drawable.logo);
-
-                TextView name = (TextView) v.findViewById(R.id.list_name);
-                name.setText(users.get(position).firstName + " " + users.get(position).lastName);
-
-                TextView age = (TextView) v.findViewById(R.id.list_age);
-
-                if (age != null) { age.setText(Integer.toString(users.get(position).age)); }
+        ArrayList<Goal> g3 = new ArrayList<Goal>();
+        g2.add(new Goal("GAIN", "Gain muscle mass"));
+        g2.add(new Goal("ENDURANCE", "Endurance training"));
 
 
-                TextView goals = (TextView) v.findViewById(R.id.list_goal);
-                goals.setText(users.get(position).goals);
+        users.add(new User(1, "David", "Goliath", 12, g1, "PAC", "N2L3G1"));
+        users.add(new User(2, "Sam", "Buhr", 23, g2, "CIF", "N2L3G1"));
+        users.add(new User(3, "Xiaofei", "Zhang", 52, g3, "Golden Gym", "N2L3W3"));
 
-                return v;
-            }
+        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList.setHasFixedSize(true);
 
-        };
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recList.setLayoutManager(llm);
 
-
-        ListView listView = (ListView) findViewById(R.id.communities_list);
-        listView.setAdapter(itemsAdapter);
-
+        UserAdapter userAdapter = new UserAdapter(users);
+        recList.setAdapter(userAdapter);
     }
 }
