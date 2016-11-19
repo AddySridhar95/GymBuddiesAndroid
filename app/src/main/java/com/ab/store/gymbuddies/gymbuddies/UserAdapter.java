@@ -27,12 +27,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     @Override
-    public void onBindViewHolder(UserViewHolder userViewHolder, int i) {
-        User u = contactList.get(i);
+    public void onBindViewHolder(UserViewHolder userViewHolder, int index) {
+        User u = contactList.get(index);
         userViewHolder.vFullName.setText(u.getFirstName() + " " + u.getLastName());
         userViewHolder.vAge.setText("Age: " + u.getAge());
-        //userViewHolder.vAge.setText(u.getAge());
-        // userViewHolder.vGoals.setText(u.getGoals());
+
+        ArrayList<Goal> userGoals = u.getGoals();
+        if (userGoals.size() > 0) {
+            String goals = "Goals: ";
+            for (int i = 0; i < userGoals.size(); i++) {
+                goals += userGoals.get(i);
+
+                if (i != userGoals.size() - 1) { goals += ","; }
+            }
+
+            userViewHolder.vGoals.setText(goals);
+        }
     }
 
     @Override
@@ -53,7 +63,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             super(v);
             vFullName =  (TextView) v.findViewById(R.id.txtFullName);
             vAge = (TextView)  v.findViewById(R.id.txtAge);
-
+            vGoals = (TextView) v.findViewById(R.id.txtGoal);
             // TODO: need to add age and goals to the view holder
         }
 
