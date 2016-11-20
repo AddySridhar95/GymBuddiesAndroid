@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import GymBuddies.Global.Constants;
 import GymBuddies.Helpers.HTTPRequestWrapper;
@@ -113,14 +114,14 @@ public class SignupActivity extends AppCompatActivity {
 
         final VolleyCallback successCallback = new VolleyCallback() {
             @Override
-            public void onSuccessResponse() {
+            public void onSuccessResponse(String s) {
                 onSignupSuccess();
             }
         };
 
         final VolleyCallback failureCallback = new VolleyCallback() {
             @Override
-            public void onSuccessResponse() {
+            public void onSuccessResponse(String s) {
                 onSignupFailed();
             }
         };
