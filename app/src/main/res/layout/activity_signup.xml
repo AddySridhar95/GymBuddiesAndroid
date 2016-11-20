@@ -95,7 +95,7 @@
             <EditText android:id="@+id/input_gym"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="textPostalAddress"
                 android:hint="Gym" />
         </android.support.design.widget.TextInputLayout>
 
@@ -121,7 +121,7 @@
             <EditText android:id="@+id/input_bio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="textImeMultiLine"
                 android:hint="About me (Optional)" />
         </android.support.design.widget.TextInputLayout>
 
