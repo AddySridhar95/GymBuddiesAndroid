@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".CommunitiesActivity" />
         <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

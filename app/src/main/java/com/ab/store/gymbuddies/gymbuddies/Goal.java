@@ -12,7 +12,6 @@ public class Goal {
     Goal(String n, String d) {
         name = n;
         desc = d;
-//        id = i;
     }
 
     String getName() {
@@ -23,7 +22,4 @@ public class Goal {
         return desc;
     }
 
-//    int getId() {
-//        return id;
-//    }
 }
