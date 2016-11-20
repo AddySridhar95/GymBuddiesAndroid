@@ -141,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
          */
         final VolleyCallback successCallback = new VolleyCallback() {
             @Override
-            public void onSuccessResponse() {
+            public void onSuccessResponse(String res) {
+                Log.d("sdafhs, haha", res);
                 onLoginSuccess();
             }
         };
@@ -151,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
          */
         final VolleyCallback failureCallback = new VolleyCallback() {
             @Override
-            public void onSuccessResponse() {
+            public void onSuccessResponse(String res) {
+                Log.d("sdafhs, haha", res);
                 onLoginFailed();
             }
         };
@@ -164,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         final HashMap<String, String> params = new HashMap<>();
         params.put("email", email);
         params.put("password", password);
+
 
         requestWrapper.makePostRequest(constants.LOGIN_ENDPOINT,
                 params, successCallback, failureCallback);

@@ -10,5 +10,5 @@ import java.util.concurrent.Callable;
  * Request Callback
  */
 public interface VolleyCallback {
-    void onSuccessResponse();
+    void onSuccessResponse(String response);
 }

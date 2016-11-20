@@ -1,5 +1,7 @@
 package com.ab.store.gymbuddies.gymbuddies;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -17,6 +19,7 @@ public class User {
     String bio;
 
     User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp, String bio) {
+        Log.d("Creating", Integer.toString(a));
         id = i;
         firstName = f;
         lastName = l;

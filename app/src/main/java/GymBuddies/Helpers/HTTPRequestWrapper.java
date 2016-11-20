@@ -46,7 +46,7 @@ public class HTTPRequestWrapper {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        success.onSuccessResponse();
+                        success.onSuccessResponse(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -54,7 +54,7 @@ public class HTTPRequestWrapper {
                 Toast errToast = Toast.makeText(context, "GET request to " + baseURL +
                         endpoint + " failed.", Toast.LENGTH_SHORT);
                 errToast.show();
-                failure.onSuccessResponse();
+                failure.onSuccessResponse(error.toString());
             }
         });
         queue.add(stringRequest);
@@ -73,13 +73,13 @@ public class HTTPRequestWrapper {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        success.onSuccessResponse();
+                        success.onSuccessResponse(response);
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                failure.onSuccessResponse();
-            }
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        failure.onSuccessResponse(error.toString());
+                    }
         }) {
             @Override
             protected Map<String, String> getParams () {

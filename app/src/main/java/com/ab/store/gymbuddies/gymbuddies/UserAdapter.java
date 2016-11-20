@@ -2,14 +2,11 @@ package com.ab.store.gymbuddies.gymbuddies;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.*;
 import android.widget.TextView;
 import android.view.LayoutInflater;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by adityasridhar on 2016-11-14.
@@ -49,7 +46,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         protected TextView vFullName;
         protected TextView vAge;
-        protected TextView vGoals;
         CommunitiesActivity cAct;
         protected TextView vBio;
 
@@ -67,9 +63,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                     cAct.startActivity(intent);
                 }
             });
-            // TODO: need to add age and goals to the view holder
         }
-
-        // TODO: create a function that dynamically adds new text views, one for each goal
     }
 }
