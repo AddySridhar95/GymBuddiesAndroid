@@ -33,12 +33,9 @@ public class CommunitiesActivity extends AppCompatActivity {
         //g3.add(new Goal(constants.GAIN, constants.GAIN_DESC));
         //g3.add(new Goal(constants.ENDURANCE, constants.ENDURANCE_DESC));
 
-        users.add(new User(1, "David", "Goliath", 12, g1, "PAC", "N2L3G1"));
-        users.add(new User(2, "Sam", "Buhr", 23, g2, "CIF", "N2L3G1"));
-        users.add(new User(3, "Xiaofei", "Zhang", 52, g3, "Golden Gym", "N2L3W3"));
-        users.add(new User(1, "David", "Goliath", 12, g1, "PAC", "N2L3G1"));
-        users.add(new User(2, "Sam", "Buhr", 23, g2, "CIF", "N2L3G1"));
-        users.add(new User(3, "Xiaofei", "Zhang", 52, g3, "Golden Gym", "N2L3W3"));
+        users.add(new User(1, "David", "Goliath", 12, g1, "PAC", "N2L3G1", "Muscle Power!"));
+        users.add(new User(2, "Sam", "Buhr", 23, g2, "CIF", "N2L3G1", "Hustle the muscle"));
+        users.add(new User(3, "Xiaofei", "Zhang", 52, g3, "Golden Gym", "N2L3W3", "Get Ripped!"));
 
         RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setHasFixedSize(true);

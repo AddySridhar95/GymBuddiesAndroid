@@ -14,8 +14,9 @@ public class User {
     ArrayList<Goal> goals;
     String gym;
     String gymPinCode;
+    String bio;
 
-    User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp) {
+    User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp, String bio) {
         id = i;
         firstName = f;
         lastName = l;
@@ -23,6 +24,7 @@ public class User {
         goals = g;
         gym = gy;
         gymPinCode = gyp;
+        this.bio = bio;
     }
 
     int getId() {
@@ -44,5 +46,7 @@ public class User {
     ArrayList<Goal> getGoals() {
         return goals;
     }
+
+    String getBio () { return bio; }
 }
 
