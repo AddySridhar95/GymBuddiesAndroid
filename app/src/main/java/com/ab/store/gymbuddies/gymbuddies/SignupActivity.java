@@ -13,6 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
+import GymBuddies.Global.Constants;
+import GymBuddies.Helpers.HTTPRequestWrapper;
+import GymBuddies.Helpers.VolleyCallback;
+
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
 
@@ -38,7 +44,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText _reEnterPasswordText;
     Button _signupButton;
     TextView _loginLink;
-
+    Constants constants = new Constants();
 
 
     @Override
@@ -94,17 +100,51 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-
-
         String name = _nameText.getText().toString();
-        //String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
+        String age = _ageText.getText().toString();
+        String weight = _weightText.getText().toString();
+        String gym = _gymText.getText().toString();
+        String bodyfat = _gymText.getText().toString();
+        String bio = _bioText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        final VolleyCallback successCallback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse() {
+                onSignupSuccess();
+            }
+        };
 
+        final VolleyCallback failureCallback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse() {
+                onSignupFailed();
+            }
+        };
+
+        // Wrapper to make HTTP request calls
+        final HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper(constants.BASE_URL,
+                this);
+
+        // Create a list of post parameters
+        final HashMap<String, String> params = new HashMap<>();
+        params.put("name", name);
+        params.put("email", email);
+        params.put("mobile",mobile);
+        params.put("age",age);
+        params.put("weight",weight);
+        params.put("gym",gym);
+        params.put("bodyfat",bodyfat);
+        params.put("bio",bio);
+        params.put("password", password);
+
+        requestWrapper.makePostRequest(constants.SIGNUP_ENDPOINT,
+                params, successCallback, failureCallback);
+
+        /*
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -115,12 +155,14 @@ public class SignupActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 }, 3000);
+         */
     }
 
 
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
+        //fireCommunitiesActivity();
         finish();
     }
 
@@ -134,11 +176,16 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = true;
 
         String name = _nameText.getText().toString();
-        //String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
+        String age = _ageText.getText().toString();
+        String weight = _weightText.getText().toString();
+        String gym = _gymText.getText().toString();
+        String bodyfat = _gymText.getText().toString();
+        String bio = _bioText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
+
 
         if (name.isEmpty() || name.length() < 3) {
             _nameText.setError("at least 3 characters");
@@ -146,14 +193,7 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _nameText.setError(null);
         }
-        /*
-        if (address.isEmpty()) {
-            _addressText.setError("Enter Valid Address");
-            valid = false;
-        } else {
-            _addressText.setError(null);
-        }
-        */
+
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
             valid = false;
@@ -166,6 +206,41 @@ public class SignupActivity extends AppCompatActivity {
             valid = false;
         } else {
             _mobileText.setError(null);
+        }
+
+        if (age.isEmpty()) {
+            _ageText.setError("Enter a valid age");
+            valid = false;
+        } else {
+            _ageText.setError(null);
+        }
+
+        if (weight.isEmpty()) {
+            _weightText.setError("Enter a valid weight");
+            valid = false;
+        } else {
+            _weightText.setError(null);
+        }
+
+        if (gym.isEmpty()) {
+            _gymText.setError("Enter a gym");
+            valid = false;
+        } else {
+            _gymText.setError(null);
+        }
+
+        if (bodyfat.isEmpty()) {
+            //_bodyfatText.setError("Enter a valid weight");
+            //valid = false;
+        } else {
+            _bodyfatText.setError(null);
+        }
+
+        if (bio.isEmpty()) {
+            //_bodyfatText.setError("Enter a valid weight");
+            //valid = false;
+        } else {
+            _bioText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
