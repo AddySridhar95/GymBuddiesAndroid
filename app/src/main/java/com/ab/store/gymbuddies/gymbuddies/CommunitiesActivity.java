@@ -21,21 +21,10 @@ public class CommunitiesActivity extends AppCompatActivity {
 
 
         ArrayList<User> users = new ArrayList<User>();
-        ArrayList<Goal> g1 = new ArrayList<Goal>();
-        // g1.add(new Goal(Constants.LEAN, Constants.LEAN_DESC));
-        g1.add(new Goal(Constants.BODYFAT, Constants.BODYFAT_DESC));
-
-        ArrayList<Goal> g2 = new ArrayList<Goal>();
-        //g2.add(new Goal(constants.GAIN, constants.GAIN_DESC));
-        //g2.add(new Goal(constants.STRENGTH, constants.STRENGTH_DESC));
-
-        ArrayList<Goal> g3 = new ArrayList<Goal>();
-        //g3.add(new Goal(constants.GAIN, constants.GAIN_DESC));
-        //g3.add(new Goal(constants.ENDURANCE, constants.ENDURANCE_DESC));
-
-        users.add(new User(1, "David", "Goliath", 12, g1, "PAC", "N2L3G1", "Muscle Power!"));
-        users.add(new User(2, "Sam", "Buhr", 23, g2, "CIF", "N2L3G1", "Hustle the muscle"));
-        users.add(new User(3, "Xiaofei", "Zhang", 52, g3, "Golden Gym", "N2L3W3", "Get Ripped!"));
+        ArrayList<Goal> g = new ArrayList<>();
+        users.add(new User(1, "David", "Goliath", 12, g, "PAC", "N2L3G1", "Muscle Power!"));
+        users.add(new User(2, "Sam", "Buhr", 23, g, "CIF", "N2L3G1", "Hustle the muscle"));
+        users.add(new User(3, "Xiaofei", "Zhang", 52, g, "Golden Gym", "N2L3W3", "Get Ripped!"));
 
         RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
         recList.setHasFixedSize(true);
