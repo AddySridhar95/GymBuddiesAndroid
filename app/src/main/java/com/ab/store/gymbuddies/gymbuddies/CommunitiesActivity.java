@@ -46,7 +46,7 @@ public class CommunitiesActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recList.setLayoutManager(llm);
 
-        UserAdapter userAdapter = new UserAdapter(users);
+        UserAdapter userAdapter = new UserAdapter(users, this);
         recList.setAdapter(userAdapter);
     }
 }
