@@ -380,17 +380,15 @@ public class ProfileActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        //respond to menu item selection
-//        switch (item.getItemId()) {
-//            case R.id.notification:
-//                startActivity(new Intent(this, About.class));
-//                return true;
-//            case R.id.profile:
-//                startActivity(new Intent(this, Help.class));
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-        return true;
+        switch (item.getItemId()) {
+            case R.id.action_notification:
+                Intent notificationIntent = new Intent(this, NotificationActivity.class);
+                String personalEmail = isCurrentUser == true ? userEmail : matchEmail;
+                notificationIntent.putExtra("pEmail", personalEmail);
+                startActivity(notificationIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
