@@ -112,6 +112,7 @@ public class CommunitiesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_notification:
                 Intent notificationIntent = new Intent(this, NotificationActivity.class);
+                notificationIntent.putExtra("pEmail", personalEmail);
                 startActivity(notificationIntent);
                 return true;
             case R.id.action_profile:
