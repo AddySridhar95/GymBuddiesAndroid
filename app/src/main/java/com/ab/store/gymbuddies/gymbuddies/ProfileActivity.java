@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -43,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
     String matchEmail = "";
     Boolean isCurrentUser = false;
     Activity pAct = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,9 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
         // Edit button click handlers
 
         ImageView userGoalsEdit = (ImageView) findViewById(R.id.userGoalsEdit);
-        // TODO: do user goals edit
-
-
 
 
         ImageView userBioEdit = (ImageView) findViewById(R.id.userBioEdit);
@@ -323,7 +323,7 @@ public class ProfileActivity extends AppCompatActivity {
         final HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper("https://gymbuddyandroid.herokuapp.com/",
                 this);
 
-        requestWrapper.makePostRequest("user/match/", params, dummy, dummy);
+        requestWrapper.makePostRequest("user/match/", params, onSuccessNotification, onFailureNotification);
     }
 
     /**
@@ -343,10 +343,19 @@ public class ProfileActivity extends AppCompatActivity {
         }
     };
 
-    final VolleyCallback dummy = new VolleyCallback() {
+    final VolleyCallback onSuccessNotification = new VolleyCallback() {
         @Override
         public void onSuccessResponse(String res) {
+            Toast t = Toast.makeText(pAct, "Match successful!", Toast.LENGTH_SHORT);
+            t.show();
+        }
+    };
 
+    final VolleyCallback onFailureNotification = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String res) {
+            Toast t = Toast.makeText(pAct, "Match failed!", Toast.LENGTH_SHORT);
+            t.show();
         }
     };
 

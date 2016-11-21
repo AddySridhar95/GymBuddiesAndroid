@@ -55,9 +55,18 @@ public class NotificationActivity extends AppCompatActivity {
                     v = inflater.inflate(R.layout.list_view, null);
                 }
 
+
                 TextView name = (TextView) v.findViewById(R.id.match_name);
                 name.setText(matchList.get(position).getFirstName() +
                         " " + matchList.get(position).getLastName());
+
+                try {
+                    ImageView profilePic = (ImageView) v.findViewById(R.id.userpic);
+                    profilePic.setImageDrawable(nAct.getResources().getDrawable(nAct.getResources().getIdentifier(matchList.get(position).getFirstName().substring(0,1).toLowerCase(), "drawable", nAct.getPackageName())));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override

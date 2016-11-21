@@ -178,7 +178,12 @@ public class SignupActivity extends AppCompatActivity {
         setResult(RESULT_OK, null);
         if ( progressDialog != null ) progressDialog.dismiss();
         //fireCommunitiesActivity();
-        finish();
+        // finish();
+
+        Intent intent = new Intent(this, CommunitiesActivity.class);
+        String personalEmail = _emailText.getText().toString();
+        intent.putExtra("pEmail", personalEmail);
+        startActivity(intent);
     }
 
     public void onSignupFailed() {
