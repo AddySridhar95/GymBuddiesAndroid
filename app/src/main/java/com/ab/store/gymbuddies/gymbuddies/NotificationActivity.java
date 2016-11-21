@@ -87,6 +87,7 @@ public class NotificationActivity extends AppCompatActivity {
                         User user = new User(new JSONObject(jsonData.get(i).toString()));
                         matchList.add(user);
                     }
+                    itemsAdapter.notifyDataSetChanged();
 
                 } catch ( JSONException e ) {
                     e.printStackTrace();
