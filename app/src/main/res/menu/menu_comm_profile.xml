@@ -7,4 +7,9 @@
         android:orderInCategory="100"
         android:title="Notification"
         android:icon="@drawable/ic_star_black"/>
+    <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:title="Profile"
+        android:icon="@drawable/ic_star_black"/>
 </menu>

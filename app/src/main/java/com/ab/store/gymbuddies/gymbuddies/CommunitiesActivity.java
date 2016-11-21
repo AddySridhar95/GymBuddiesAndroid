@@ -102,7 +102,7 @@ public class CommunitiesActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_profile, menu);
+        inflater.inflate(R.menu.menu_comm_profile, menu);
         return true;
     }
 
@@ -111,10 +111,14 @@ public class CommunitiesActivity extends AppCompatActivity {
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.action_notification:
-                startActivity(new Intent(this, NotificationActivity.class));
+                Intent notificationIntent = new Intent(this, NotificationActivity.class);
+                startActivity(notificationIntent);
                 return true;
             case R.id.action_profile:
-                startActivity(new Intent(this, ProfileActivity.class));
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                profileIntent.putExtra("userEmail", personalEmail);
+                profileIntent.putExtra("isCurrentUser", true);
+                startActivity(profileIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

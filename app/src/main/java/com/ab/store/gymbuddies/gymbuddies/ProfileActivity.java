@@ -3,6 +3,7 @@ package com.ab.store.gymbuddies.gymbuddies;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,14 +40,20 @@ public class ProfileActivity extends AppCompatActivity {
     String bio = "";
     String goalsStr = "";
     String userEmail = "";
-
-
+    String matchEmail = "";
+    Boolean isCurrentUser = false;
+    Activity pAct = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
         userEmail = intent.getExtras().getString("userEmail");
+        if (intent.getExtras().getString("matchEmail") != null) {
+            matchEmail = intent.getExtras().getString("matchEmail");
+        }
+
+        isCurrentUser = intent.getExtras().getBoolean("isCurrentUser");
         final Activity curAct = this;
         if (userEmail != null) {
             Log.d("ProfileVIewww", userEmail);
@@ -59,13 +66,28 @@ public class ProfileActivity extends AppCompatActivity {
         // make request and load profile
         loadProfile(userEmail);
 
+        ImageView matchBtn = (ImageView) findViewById(R.id.matchbtn);
+        matchBtn.setClickable(true);
+        matchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HashMap<String, String> params = new HashMap<String, String>();
+                params.put("email", userEmail);
+                params.put("matchEmail", matchEmail);
+                postMatchUserReq(params);
+            }
+        });
+
         // Edit button click handlers
 
         ImageView userGoalsEdit = (ImageView) findViewById(R.id.userGoalsEdit);
         // TODO: do user goals edit
 
 
+
+
         ImageView userBioEdit = (ImageView) findViewById(R.id.userBioEdit);
+
         userBioEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,6 +201,22 @@ public class ProfileActivity extends AppCompatActivity {
                 alert.show();
             }
         });
+
+        if (isCurrentUser) {
+            userBioEdit.setVisibility(View.VISIBLE);
+            userWeightEdit.setVisibility(View.VISIBLE);
+            userAgeEdit.setVisibility(View.VISIBLE);
+            userBodyFatEdit.setVisibility(View.VISIBLE);
+            userPhoneNoEdit.setVisibility(View.VISIBLE);
+            userGoalsEdit.setVisibility(View.VISIBLE);
+        } else {
+            userBioEdit.setVisibility(View.GONE);
+            userWeightEdit.setVisibility(View.GONE);
+            userAgeEdit.setVisibility(View.GONE);
+            userBodyFatEdit.setVisibility(View.GONE);
+            userPhoneNoEdit.setVisibility(View.GONE);
+            userGoalsEdit.setVisibility(View.GONE);
+        }
     }
 
 
@@ -235,8 +273,18 @@ public class ProfileActivity extends AppCompatActivity {
 
                         if (i != goalsArr.length() - 1) { goalsStr += ","; }
                     }
-                    Log.d("ProfileShit", goalsStr);
+                    Log.d("ProfileShit", firstName.substring(0,1).toLowerCase());
                 }
+
+                try {
+                    ImageView profilePic = (ImageView) findViewById(R.id.profilepic);
+                    profilePic.setImageDrawable(pAct.getResources().getDrawable(pAct.getResources().getIdentifier(firstName.substring(0,1).toLowerCase(), "drawable", pAct.getPackageName())));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+
+
 
                 userName.setText(firstName + " " + lastName);
                 userAge.setText(age);
@@ -268,6 +316,13 @@ public class ProfileActivity extends AppCompatActivity {
         requestWrapper.makePostRequest("user/edit/", params, postProfileEditSuccessCallback, postProfileEditFailureCallback);
     }
 
+    public void postMatchUserReq(HashMap<String, String> params) {
+        final HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper("https://gymbuddyandroid.herokuapp.com/",
+                this);
+
+        requestWrapper.makePostRequest("user/match/", params, dummy, dummy);
+    }
+
     /**
      * Create a request failure callback
      */
@@ -282,6 +337,13 @@ public class ProfileActivity extends AppCompatActivity {
         @Override
         public void onSuccessResponse(String res) {
             loadProfile(userEmail);
+        }
+    };
+
+    final VolleyCallback dummy = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String res) {
+
         }
     };
 
