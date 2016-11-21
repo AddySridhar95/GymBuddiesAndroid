@@ -119,6 +119,6 @@ public class CommunitiesActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-        return true;
+
     }
 }
