@@ -11,6 +11,9 @@ import java.util.Iterator;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -30,6 +33,10 @@ public class CommunitiesActivity extends AppCompatActivity {
 
     public void onLoginFailed() {
 
+    }
+
+    public String getPersonalEmail() {
+        return personalEmail;
     }
 
     @Override
@@ -54,7 +61,9 @@ public class CommunitiesActivity extends AppCompatActivity {
                         JSONObject l = new JSONObject(jsonArr.getJSONObject(i).toString());
                         JSONObject det = new JSONObject(l.get("local").toString());
 
-                        users.add(new User(i, det.get("first_name").toString(), det.get("last_name").toString(), (int) det.get("age"), new ArrayList<Goal>(), "", "", det.get("bio").toString()));
+                        // TODO: need to get goals, address, pincode
+                        JSONObject auth = new JSONObject(det.get("auth").toString());
+                        users.add(new User(i, det.get("first_name").toString(), det.get("last_name").toString(), (int) det.get("age"), new ArrayList<Goal>(), "", "", det.get("bio").toString(), auth.get("email").toString()));
                     }
                 } catch (org.json.JSONException ex) {
                     ex.printStackTrace();
@@ -68,7 +77,6 @@ public class CommunitiesActivity extends AppCompatActivity {
         final VolleyCallback failureCallback = new VolleyCallback() {
             @Override
             public void onSuccessResponse(String res) {
-                Log.d("sdfuhsjkdfhsdj", res);
                 // onLoginFailed();
             }
         };
@@ -87,5 +95,30 @@ public class CommunitiesActivity extends AppCompatActivity {
 
         UserAdapter userAdapter = new UserAdapter(users, this);
         recList.setAdapter(userAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_profile, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        //respond to menu item selection
+        switch (item.getItemId()) {
+            case R.id.action_notification:
+                startActivity(new Intent(this, NotificationActivity.class));
+                return true;
+            case R.id.action_profile:
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }

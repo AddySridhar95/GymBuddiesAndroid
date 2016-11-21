@@ -17,8 +17,9 @@ public class User {
     String gym;
     String gymPinCode;
     String bio;
+    String email;
 
-    User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp, String bio) {
+    User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp, String bio, String e) {
         Log.d("Creating", Integer.toString(a));
         id = i;
         firstName = f;
@@ -28,6 +29,7 @@ public class User {
         gym = gy;
         gymPinCode = gyp;
         this.bio = bio;
+        email = e;
     }
 
     int getId() {
@@ -51,5 +53,7 @@ public class User {
     }
 
     String getBio () { return bio; }
+
+    String getEmail() { return email; }
 }
 

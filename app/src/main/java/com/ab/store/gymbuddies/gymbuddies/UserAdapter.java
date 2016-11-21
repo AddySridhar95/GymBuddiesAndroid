@@ -32,6 +32,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userViewHolder.vFullName.setText(u.getFirstName() + " " + u.getLastName());
         userViewHolder.vAge.setText("Age: " + u.getAge());
         userViewHolder.vBio.setText(u.getBio());
+        userViewHolder.email = u.getEmail();
     }
 
     @Override
@@ -48,6 +49,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         protected TextView vAge;
         CommunitiesActivity cAct;
         protected TextView vBio;
+        public String email;
 
         public UserViewHolder(View v, CommunitiesActivity c) {
             super(v);
@@ -59,7 +61,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Intent intent = new Intent(cAct, ProfileActivity.class);
+                    intent.putExtra("userEmail", email);
                     cAct.startActivity(intent);
                 }
             });

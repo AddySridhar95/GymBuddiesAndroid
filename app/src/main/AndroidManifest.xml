@@ -22,8 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".CommunitiesActivity" />
-        <activity android:name=".SignupActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".NotificationActivity"></activity>
     </application>
 
 </manifest>
