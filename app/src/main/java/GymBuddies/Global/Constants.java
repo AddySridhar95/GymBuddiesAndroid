@@ -8,6 +8,7 @@ public class Constants {
     public static final String BASE_URL = "https://gymbuddyandroid.herokuapp.com/";
     public static final String LOGIN_ENDPOINT = "login";
     public static final String SIGNUP_ENDPOINT = "user/register";
+    public static final String GET_MATCH_ENDPOINT = "user/matches";
     public static final String COMMUNITIES_LIST = "communities/users"; // TODO: verify this
 
     public static final String LEAN = "Lean";

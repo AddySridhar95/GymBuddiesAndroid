@@ -2,6 +2,9 @@ package com.ab.store.gymbuddies.gymbuddies;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -18,6 +21,20 @@ public class User {
     String gymPinCode;
     String bio;
     String email;
+
+    User (JSONObject userJson) {
+        try {
+            JSONObject localMeta = userJson.getJSONObject("local");
+            JSONObject userAuthMeta = localMeta.getJSONObject("auth");
+            firstName = localMeta.getString("first_name");
+            lastName = localMeta.getString("last_name");
+            email = userAuthMeta.getString("email");
+            bio = localMeta.getString("bio");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     User(int i, String f, String l, int a, ArrayList<Goal> g, String gy, String gyp, String bio, String e) {
         Log.d("Creating", Integer.toString(a));
