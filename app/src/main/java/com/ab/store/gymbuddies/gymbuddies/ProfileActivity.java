@@ -78,6 +78,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        if (isCurrentUser) {
+            matchBtn.setVisibility(View.GONE);
+        }
         // Edit button click handlers
 
         ImageView userGoalsEdit = (ImageView) findViewById(R.id.userGoalsEdit);
