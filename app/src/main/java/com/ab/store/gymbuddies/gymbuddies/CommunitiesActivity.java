@@ -19,7 +19,6 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import GymBuddies.Global.Constants;
 import GymBuddies.Helpers.HTTPRequestWrapper;
 import GymBuddies.Helpers.VolleyCallback;
 
