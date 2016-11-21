@@ -47,6 +47,29 @@ public class CommunitiesActivity extends AppCompatActivity {
         personalEmail = intent.getExtras().getString("pEmail");
 
         final ArrayList<User> users = new ArrayList<User>();
+
+
+        /**
+         * Create a request failure callback
+         */
+        final VolleyCallback failureCallback = new VolleyCallback() {
+            @Override
+            public void onSuccessResponse(String res) {
+                // onLoginFailed();
+            }
+        };
+
+         // Wrapper to make HTTP request calls
+        final HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper("https://gymbuddyandroid.herokuapp.com/",
+                this);
+
+        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
+        recList.setHasFixedSize(true);
+
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recList.setLayoutManager(llm);
+
+        final UserAdapter userAdapter = new UserAdapter(users, this);
         /**
          * Create a request success callback
          */
@@ -64,38 +87,18 @@ public class CommunitiesActivity extends AppCompatActivity {
                         // TODO: need to get goals, address, pincode
                         JSONObject auth = new JSONObject(det.get("auth").toString());
                         users.add(new User(i, det.get("first_name").toString(), det.get("last_name").toString(), (int) det.get("age"), new ArrayList<Goal>(), "", "", det.get("bio").toString(), auth.get("email").toString()));
+
                     }
+                    userAdapter.notifyDataSetChanged();
                 } catch (org.json.JSONException ex) {
                     ex.printStackTrace();
                 }
             }
         };
-
-        /**
-         * Create a request failure callback
-         */
-        final VolleyCallback failureCallback = new VolleyCallback() {
-            @Override
-            public void onSuccessResponse(String res) {
-                // onLoginFailed();
-            }
-        };
-
-         // Wrapper to make HTTP request calls
-        final HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper("https://gymbuddyandroid.herokuapp.com/",
-                this);
-
         requestWrapper.makeGetRequest("communities/users?email=" + personalEmail, successCallback, failureCallback);
-
-        RecyclerView recList = (RecyclerView) findViewById(R.id.cardList);
-        recList.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recList.setLayoutManager(llm);
-
-        UserAdapter userAdapter = new UserAdapter(users, this);
         recList.setAdapter(userAdapter);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
