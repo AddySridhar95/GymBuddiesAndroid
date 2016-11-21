@@ -8,11 +8,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
@@ -21,18 +26,9 @@ import GymBuddies.Helpers.HTTPRequestWrapper;
 import GymBuddies.Helpers.VolleyCallback;
 
 public class SignupActivity extends AppCompatActivity {
+
     private static final String TAG = "SignupActivity";
 
-    /*
-    @Bind(R.id.input_name) EditText _nameText;
-    @Bind(R.id.input_address) EditText _addressText;
-    @Bind(R.id.input_email) EditText _emailText;
-    @Bind(R.id.input_mobile) EditText _mobileText;
-    @Bind(R.id.input_password) EditText _passwordText;
-    @Bind(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
-    @Bind(R.id.btn_signup) Button _signupButton;
-    @Bind(R.id.link_login) TextView _loginLink;
-*/
     EditText _nameText;
     EditText _lastNameText;
     EditText _emailText;
@@ -45,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText _passwordText;
     EditText _reEnterPasswordText;
     Button _signupButton;
+    ArrayList<CharSequence> objectives;
     TextView _loginLink;
     Constants constants = new Constants();
     ProgressDialog progressDialog;
@@ -68,6 +65,8 @@ public class SignupActivity extends AppCompatActivity {
         _reEnterPasswordText = (EditText) findViewById(R.id.input_reEnterPassword);
         _signupButton = (Button) findViewById(R.id.btn_signup);
         _loginLink = (TextView) findViewById(R.id.link_login);
+        objectives = new ArrayList<>();
+
 
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +85,24 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+    }
+
+    public void onGoalPick (View checkBox) {
+        CheckBox option = (CheckBox) checkBox;
+        if ( option.isChecked() ) {
+            objectives.add(option.getText());
+        } else {
+            objectives.remove(option.getText());
+        }
+    }
+
+    private String listToString(ArrayList<CharSequence> list) {
+        String toRet = "";
+        for (int i = 0; i < list.size(); i++) {
+            toRet += (list.get(i)).toString();
+            if ( i < list.size() - 1 ) toRet += ",";
+        }
+        return toRet;
     }
 
     public void signup() {
@@ -115,6 +132,8 @@ public class SignupActivity extends AppCompatActivity {
         String bio = _bioText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
+        String goals = listToString(objectives);
+
 
         final VolleyCallback successCallback = new VolleyCallback() {
             @Override
@@ -146,23 +165,11 @@ public class SignupActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
         params.put("gym_address",gym);
+        params.put("objectives", goals);
 
 
-        requestWrapper.makePostRequest(constants.SIGNUP_ENDPOINT,
+        requestWrapper.makePostRequest("user/register",
                 params, successCallback, failureCallback);
-
-        /*
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-         */
     }
 
 
