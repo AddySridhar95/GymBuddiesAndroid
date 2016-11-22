@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import GymBuddies.Global.CommonUtils;
 import GymBuddies.Helpers.HTTPRequestWrapper;
 import GymBuddies.Helpers.VolleyCallback;
 
@@ -87,6 +88,46 @@ public class ProfileActivity extends AppCompatActivity {
         // Edit button click handlers
 
         ImageView userGoalsEdit = (ImageView) findViewById(R.id.userGoalsEdit);
+        userGoalsEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                final ArrayList selectedOptions = new ArrayList();
+                final AlertDialog goalchangedialog = new AlertDialog.Builder(curAct)
+                        .setTitle("Select objectives:")
+                        .setMultiChoiceItems(CommonUtils.options, null, new DialogInterface.OnMultiChoiceClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i, boolean isChecked) {
+                                if ( isChecked ) {
+                                    selectedOptions.add(CommonUtils.options[i]);
+                                } else {
+                                    selectedOptions.remove(CommonUtils.options[i]);
+                                }
+
+                            }
+                        }).setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String goals = CommonUtils.listToString(selectedOptions);
+                                HashMap<String, String> params  = new HashMap<String, String>();
+                                params.put("email", userEmail);
+                                params.put("goals", goals);
+                                postEditProfileReq(params);
+                                dialogInterface.dismiss();
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).create();
+                selectedOptions.clear();
+                goalchangedialog.show();
+            }
+        });
 
 
         ImageView userBioEdit = (ImageView) findViewById(R.id.userBioEdit);
@@ -271,6 +312,7 @@ public class ProfileActivity extends AppCompatActivity {
                     JSONArray goalsArr = new JSONArray(goals);
 
                     Log.d("ProfileShit", goalsArr.toString() + " " + weight + " " + firstName);
+                    goalsStr = "";
                     for (int i = 0; i < goalsArr.length(); i++) {
                         goalsStr += goalsArr.get(i).toString();
 

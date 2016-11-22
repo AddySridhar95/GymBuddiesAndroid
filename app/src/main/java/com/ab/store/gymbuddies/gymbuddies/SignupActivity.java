@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+import GymBuddies.Global.CommonUtils;
 import GymBuddies.Global.Constants;
 import GymBuddies.Helpers.HTTPRequestWrapper;
 import GymBuddies.Helpers.VolleyCallback;
@@ -96,15 +97,6 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private String listToString(ArrayList<CharSequence> list) {
-        String toRet = "";
-        for (int i = 0; i < list.size(); i++) {
-            toRet += (list.get(i)).toString();
-            if ( i < list.size() - 1 ) toRet += ",";
-        }
-        return toRet;
-    }
-
     public void signup() {
         Log.d(TAG, "Signup");
 
@@ -132,7 +124,7 @@ public class SignupActivity extends AppCompatActivity {
         String bio = _bioText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-        String goals = listToString(objectives);
+        String goals = CommonUtils.listToString(objectives);
 
 
         final VolleyCallback successCallback = new VolleyCallback() {
