@@ -123,6 +123,10 @@ public class CommunitiesActivity extends AppCompatActivity {
                 profileIntent.putExtra("isCurrentUser", true);
                 startActivity(profileIntent);
                 return true;
+            case R.id.action_signout:
+                Intent mainActivityIntent = new Intent(this, MainActivity.class);
+                startActivity(mainActivityIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
