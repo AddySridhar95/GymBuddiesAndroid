@@ -429,6 +429,10 @@ public class ProfileActivity extends AppCompatActivity {
                 notificationIntent.putExtra("pEmail", personalEmail);
                 startActivity(notificationIntent);
                 return true;
+            case R.id.action_signout:
+                Intent mainActivityIntent = new Intent(this, MainActivity.class);
+                startActivity(mainActivityIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

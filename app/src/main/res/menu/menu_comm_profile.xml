@@ -6,10 +6,16 @@
         android:id="@+id/action_notification"
         android:orderInCategory="100"
         android:title="Notification"
-/>
+    />
     <item
         android:id="@+id/action_profile"
         android:orderInCategory="100"
         android:title="Profile"
-/>
+    />
+    <item
+        android:id="@+id/action_signout"
+        android:orderInCategory="100"
+        android:title="Sign out"
+        />
+
 </menu>
