@@ -15,7 +15,7 @@ public class CommonUtils {
         String toRet = "";
         for (int i = 0; i < list.size(); i++) {
             toRet += (list.get(i)).toString();
-            if ( i < list.size() - 1 ) toRet += ",";
+            if ( i < list.size() - 1 ) toRet += ", ";
         }
         return toRet;
     }

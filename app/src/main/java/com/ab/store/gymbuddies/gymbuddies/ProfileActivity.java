@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import GymBuddies.Global.CommonUtils;
+import GymBuddies.Global.Constants;
 import GymBuddies.Helpers.HTTPRequestWrapper;
 import GymBuddies.Helpers.VolleyCallback;
 
@@ -298,6 +299,11 @@ public class ProfileActivity extends AppCompatActivity {
                 if (det.has("phone_num")) {
                     phoneNo = det.get("phone_num").toString();
                 }
+                if ( isCurrentUser ) {
+                    phoneNum.setText(phoneNo);
+                } else {
+                    populatePhone();
+                }
 
                 if (det.has("body_fat")) {
                     bodyFatStr = det.get("body_fat").toString();
@@ -316,7 +322,7 @@ public class ProfileActivity extends AppCompatActivity {
                     for (int i = 0; i < goalsArr.length(); i++) {
                         goalsStr += goalsArr.get(i).toString();
 
-                        if (i != goalsArr.length() - 1) { goalsStr += ","; }
+                        if (i != goalsArr.length() - 1) { goalsStr += ", "; }
                     }
                     Log.d("ProfileShit", firstName.substring(0,1).toLowerCase());
                 }
@@ -337,13 +343,34 @@ public class ProfileActivity extends AppCompatActivity {
                 userBio.setText(bio);
                 userGoals.setText(goalsStr);
                 bodyFat.setText(bodyFatStr);
-                phoneNum.setText(phoneNo);
 
             } catch (org.json.JSONException ex) {
                 ex.printStackTrace();
             }
         }
     };
+
+    final VolleyCallback successIsMatch = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+            TextView phoneNum = (TextView) findViewById(R.id.userPhoneNo);
+            phoneNum.setText(phoneNo);
+        }
+    };
+
+    final VolleyCallback failureIsMatch = new VolleyCallback() {
+        @Override
+        public void onSuccessResponse(String response) {
+            TextView phoneNum = (TextView) findViewById(R.id.userPhoneNo);
+            phoneNum.setText("");
+        }
+    };
+
+    public void populatePhone () {
+        String paramString = "user/ismatch?email=" + userEmail + "&matchEmail=" + matchEmail;
+        HTTPRequestWrapper requestWrapper = new HTTPRequestWrapper(Constants.BASE_URL, this);
+        requestWrapper.makeGetRequest(paramString, successIsMatch, failureIsMatch);
+    }
 
     public void loadProfile(String email) {
         // Wrapper to make HTTP request calls

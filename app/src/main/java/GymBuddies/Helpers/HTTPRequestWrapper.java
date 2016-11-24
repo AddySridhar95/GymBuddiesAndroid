@@ -53,7 +53,7 @@ public class HTTPRequestWrapper {
             public void onErrorResponse(VolleyError error) {
                 Toast errToast = Toast.makeText(context, "GET request to " + baseURL +
                         endpoint + " failed.", Toast.LENGTH_SHORT);
-                errToast.show();
+                //errToast.show();
                 failure.onSuccessResponse(error.toString());
             }
         });
